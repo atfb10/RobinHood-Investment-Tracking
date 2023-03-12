@@ -4,7 +4,7 @@ Date: March 12, 2023
 Description: app.py manages the running of the application
 '''
 
-import smtplib
+import schedule, smtplib
 from email.message import EmailMessage
 
 # Import variables
@@ -37,4 +37,5 @@ email['To'] = EMAIL_TO
 email.set_content(email_content)
 
 # Send email when it is time
-send_timely_mail(SMTP_CONNECTOR, email)
+schedule.every().monday.at('7:30').do(send_timely_mail(SMTP_CONNECTOR, email))
+schedule.every().friday.at('14:00').do(send_timely_mail(SMTP_CONNECTOR, email))
