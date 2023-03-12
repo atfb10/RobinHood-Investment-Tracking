@@ -1,4 +1,4 @@
-# Insta-Manager
+# Stock Updates from Robinhood
 This project gets a RobinHood users stocks they are invested in and at market open Monday, and market close and emails the user
 their prices
 
