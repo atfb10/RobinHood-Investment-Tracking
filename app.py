@@ -5,6 +5,8 @@ Description: app.py manages the running of the application
 '''
 
 import schedule, smtplib
+from pytz import timezone
+
 from email.message import EmailMessage
 
 # Import variables
@@ -37,5 +39,5 @@ email['To'] = EMAIL_TO
 email.set_content(email_content)
 
 # Send email when it is time
-schedule.every().monday.at('7:30').do(send_timely_mail(SMTP_CONNECTOR, email))
-schedule.every().friday.at('14:00').do(send_timely_mail(SMTP_CONNECTOR, email))
+schedule.every().monday.at('7:30', timezone('US/Mountain')).do(send_timely_mail(SMTP_CONNECTOR, email))
+schedule.every().friday.at('14:00', timezone('US/Mountain')).do(send_timely_mail(SMTP_CONNECTOR, email))
