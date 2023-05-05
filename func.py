@@ -6,9 +6,6 @@ Description: func.py contains the logic behind the running of the application
 import pandas as pd
 import functools, robin_stocks
 
-from smsframework import Gateway
-from smsframework_clickatell import ClickatellProvider
-
 def extract_data(username: str, password: str) -> pd.DataFrame:
     '''
     arguments: None
@@ -20,6 +17,7 @@ def extract_data(username: str, password: str) -> pd.DataFrame:
 
 def build_message(df: pd.DataFrame) -> str:
     '''
+    arguments: data. Dataframe of current holdings
     returns: string that will be the email content
     description: extract data gets the desired data from one's RobinHood account and returns it as a Python dictionary object
     '''
@@ -28,3 +26,4 @@ def build_message(df: pd.DataFrame) -> str:
     investment_status_msg = f'Your current equity change for {ticker} = ${equity_change}'
 
     return investment_status_msg
+

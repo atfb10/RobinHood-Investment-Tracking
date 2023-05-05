@@ -21,18 +21,16 @@ from credentials import (
 )
 from func import (
     build_message,
-    extract_data
+    extract_data,
+    send_text
 )
 
 # Get Data
 investment_data = extract_data(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD)
-msg = build_message(df=investment_data)
-print(msg)
 
 # Generate text message
+msg = build_message(df=investment_data)
 
 
-
-# TODO: Perform Functionality every 5 minutes during week when stock market is open
-# schedule.every().monday.at('7:30', timezone('US/Mountain')).do(send_timely_mail(SMTP_CONNECTOR, email))
+# TODO: Perform Functionality every market close on Fridays
 # schedule.every().friday.at('14:00', timezone('US/Mountain')).do(send_timely_mail(SMTP_CONNECTOR, email))
