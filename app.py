@@ -1,6 +1,6 @@
 '''
 Author: Adam Forestier
-Date: March 12, 2023
+Date: May 5, 2023
 Description: app.py manages the running of the application
 '''
 
@@ -22,12 +22,13 @@ from func import (
 )
 
 # Connect to gmail
-PORT = 587
-HOST = 'smtp.gmail.com'
-SMTP_CONNECTOR = smtplib.SMTP(host=HOST, port=PORT)
-SMTP_CONNECTOR.starttls()
-SMTP_CONNECTOR.login(EMAIL_FROM, EMAIL_FROM_PASSWORD)
+# PORT = 587
+# HOST = 'smtp.gmail.com'
+# SMTP_CONNECTOR = smtplib.SMTP(host=HOST, port=PORT)
+# SMTP_CONNECTOR.starttls()
+# SMTP_CONNECTOR.login(EMAIL_FROM, EMAIL_FROM_PASSWORD)
 
+# Get Data
 investment_data = extract_data()
 email_content = build_message(investment_data)
 

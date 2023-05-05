@@ -1,6 +1,6 @@
 '''
 Author: Adam Forestier
-Date: March 12, 2023
+Date: May 5, 2023
 Description: func.py contains the logic behind the running of the application
 '''
 import functools, robin_stocks, smtplib
