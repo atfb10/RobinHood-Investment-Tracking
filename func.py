@@ -27,7 +27,7 @@ def extract_data() -> dict:
     returns: Dictionary of investmentment data
     description: extract data gets the desired data from one's RobinHood account and returns it as a Python dictionary object
     '''
-    login = robin_stocks.robinhood.login(ROBINHODD_USERNAME, ROBINHOOD_PASSWORD)
+    robin_stocks.robinhood.login(ROBINHODD_USERNAME, ROBINHOOD_PASSWORD)
     return robin_stocks.robinhood.build_holdings()
 
 def build_message(data: dict) -> str:
