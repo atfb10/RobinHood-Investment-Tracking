@@ -11,11 +11,12 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import os
 
-from my_credentials import (
-    EMAIL, 
-    EMAIL_PASSWORD
+# Local imports
+from credentials import (
+    EMAIL_FROM,
+    EMAIL_FROM_PASSWORD
 )
-from users.user import MpUser
+from user import RobinUser
 
 # Constants
 PORT = 587
@@ -30,7 +31,7 @@ Adam
 '''
 
 
-def send_mail(user: MpUser) -> None:
+def send_mail(user: RobinUser) -> None:
     '''
     arguments: MpUser object
     returns: None
@@ -39,7 +40,7 @@ def send_mail(user: MpUser) -> None:
     msg = MIMEMultipart()
     body_part = MIMEText(MESSAGE_BODY, 'plain')
     msg['Subject'] = EMAIL_SUBJECT
-    msg['From'] = EMAIL
+    msg['From'] = EMAIL_FROM
     msg['To'] = user.email
     msg.attach(body_part)
     parent_dir = 'user_files/'
@@ -51,7 +52,7 @@ def send_mail(user: MpUser) -> None:
 
     smtp_obj = smtplib.SMTP(host=HOST, port=PORT)
     smtp_obj.starttls()
-    smtp_obj.login(EMAIL, EMAIL_PASSWORD)
+    smtp_obj.login(EMAIL_FROM, EMAIL_FROM_PASSWORD)
 
     smtp_obj.sendmail(msg['From'], msg['To'], msg.as_string())
     smtp_obj.quit()
