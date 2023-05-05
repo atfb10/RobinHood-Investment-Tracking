@@ -3,37 +3,33 @@ Author: Adam Forestier
 Date: May 5, 2023
 Description: app.py manages the running of the application
 '''
+
+# Libraries and Modules
 import schedule
 
 from pytz import timezone
-
 from email.message import EmailMessage
 
-# Import variables
+# Local Imports
 from credentials import (
     EMAIL_FROM,
     EMAIL_FROM_PASSWORD,
     EMAIL_TO,
     PHONE_NUM,
+    ROBINHODD_USERNAME,
+    ROBINHOOD_PASSWORD
 )
 from func import (
     build_message,
     extract_data
 )
 
-# Connect to gmail
-# PORT = 587
-# HOST = 'smtp.gmail.com'
-# SMTP_CONNECTOR = smtplib.SMTP(host=HOST, port=PORT)
-# SMTP_CONNECTOR.starttls()
-# SMTP_CONNECTOR.login(EMAIL_FROM, EMAIL_FROM_PASSWORD)
-
 # Get Data
-investment_data = extract_data()
-print(investment_data)
+investment_data = extract_data(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD)
+msg = build_message(df=investment_data)
+print(msg)
 
 # Generate text message
-text_msg = build_message(investment_data)
 
 
 
