@@ -24,10 +24,16 @@ from func import (
 )
 from user import RobinUser
 
+def run_app() -> None:
+    '''
+    perform's running of the app. Allows schedule to work
+    TODO: Put final project's functionality into here
+    '''
+    pass
+
 # Create User
 user = RobinUser(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD, email=EMAIL_TO)
-print(user.df)
-print(user.directory)
+# user.send_mail()
 
 # TODO: Perform Functionality every market close on Fridays
-# schedule.every().friday.at('14:00', timezone('US/Mountain')).do(send_timely_mail(SMTP_CONNECTOR, email))
+# schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
