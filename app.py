@@ -18,10 +18,6 @@ from credentials import (
     ROBINHODD_USERNAME,
     ROBINHOOD_PASSWORD
 )
-from func import (
-    build_message,
-    extract_data,
-)
 from user import RobinUser
 
 def run_app() -> None:
@@ -33,7 +29,7 @@ def run_app() -> None:
 
 # Create User
 user = RobinUser(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD, email=EMAIL_TO)
-# user.send_mail()
+user.send_mail()
 
 # TODO: Perform Functionality every market close on Fridays
 # schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
