@@ -1,6 +1,5 @@
-# Stock Updates from Robinhood
-This project gets a RobinHood users stocks they are invested in and at market open Monday, and market close and emails the user
-their prices
+# Weekly Investment Updates
+Obtains current investment information by credentials, graphs data, and emails user weekly at market close Friday
 
 ### Requirements
 * [Python3](https://www.python.org/downloads/)
@@ -11,3 +10,5 @@ their prices
 * Install project requirements pip install -r requirements.txt
 * Create a credentials.py file at the same directory level as app.py.
 * In the credentials.py file, create the constant variables imported in app.py
+* Create a user_files directory at the same level as app.py
+* Run project -> python app.py
