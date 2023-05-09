@@ -7,6 +7,7 @@ import shutil as sh
 import os
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import plotly.offline as pyo
 import robin_stocks
 import smtplib
@@ -16,6 +17,7 @@ from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+from plotly.subplots import make_subplots
 
 from credentials import (
     PATH_TO_PROJECT, 
@@ -138,6 +140,7 @@ class RobinUser:
         description: function to call all private method graphing functions
         '''
         self.__equity_change_by_company()
+        self.__percentage_holdings_by_company()
         return
 
     def __move_graph_to_user_folder(self, filename) -> None:
@@ -163,6 +166,19 @@ class RobinUser:
         df = df.sort_values('equity_change')
         fig = px.histogram(df, x='name', y='equity_change', color='name', title='Equity Change by Company', text_auto=True)
         filename =  'Equity Change by Company.html'
+        pyo.plot(fig, filename=filename)
+        self.__move_graph_to_user_folder(filename)
+        return
+    
+    def __percentage_holdings_by_company(self) -> None:
+        '''
+        arguments: self
+        returns: None
+        description: creates a plotly graph of the percentage of total holdings for each company
+        '''
+        df = self.df
+        fig = px.pie(df, values='percentage', names='name', title='Percentage of Holdings by Company')
+        filename = 'Percent Holdings by Company.html'
         pyo.plot(fig, filename=filename)
         self.__move_graph_to_user_folder(filename)
         return
