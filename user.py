@@ -141,6 +141,7 @@ class RobinUser:
         '''
         self.__equity_change_by_company()
         self.__percentage_holdings_by_company()
+        self.__current_vs_invested_price()
         return
 
     def __move_graph_to_user_folder(self, filename) -> None:
@@ -179,6 +180,33 @@ class RobinUser:
         df = self.df
         fig = px.pie(df, values='percentage', names='name', title='Percentage of Holdings by Company')
         filename = 'Percent Holdings by Company.html'
+        pyo.plot(fig, filename=filename)
+        self.__move_graph_to_user_folder(filename)
+        return
+    
+    def __current_vs_invested_price(self):
+        '''
+        arguments: self
+        returns: None
+        description: creates nested bar graph of 
+        '''
+        df = self.df
+        # df = df['price'].sort_values()
+        current_price_trace = go.Bar(x=df['name'], y=df['price'], name='Current Price', marker={'color': '#90ee90'})
+        average_purchase_price_trace = go.Bar(x=df['name'], y=df['average_buy_price'], name='Average Purchase Price', marker={'color': '#ffcccb'})
+
+        # Data = list of traces
+        data = [current_price_trace, average_purchase_price_trace]
+
+        # Layout for nested bar chart
+        layout = go.Layout(title='Curernt Price vs Average Purchase Price',
+                        xaxis={'title': 'Company'},
+                        yaxis={'title': 'Value'},
+                        hovermode='closest')
+
+        # Create figure with data and layout
+        fig = go.Figure(data=data, layout=layout)
+        filename = 'Current Price vs Average Purchase Price.html'
         pyo.plot(fig, filename=filename)
         self.__move_graph_to_user_folder(filename)
         return
