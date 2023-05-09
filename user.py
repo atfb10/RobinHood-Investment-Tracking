@@ -39,7 +39,7 @@ class RobinUser:
         self.password = password
         self.email = email
         self.directory = f'{PATH_TO_PROJECT}\\user_files\\{username}'
-        self.df = self.__extract_data()
+        self.holdings_df = self.__extract_holdings_data()
         self.__graph()
         self.__zip_user_folder()
 
@@ -55,7 +55,7 @@ class RobinUser:
         '''
         return f'Username: {self.username}. User Email: {self.email}'
     
-    def __extract_data(self) -> pd.DataFrame:
+    def __extract_holdings_data(self) -> pd.DataFrame:
         '''
         arguments: None
         returns: Dictionary of investmentment data
@@ -80,7 +80,7 @@ class RobinUser:
         returns: string that will be the email content
         description: extract data gets the desired data from one's RobinHood account and returns it as a Python dictionary object
         '''
-        equity_change_by_tick = self.df['equity_change'].to_list()
+        equity_change_by_tick = self.holdings_df['equity_change'].to_list()
         equity_change = 0
         for ec in equity_change_by_tick:
             ec = float(ec)
@@ -163,7 +163,7 @@ class RobinUser:
         returns: None
         description: Plotly bar graph of equity change by company
         '''
-        df = self.df
+        df = self.holdings_df
         df = df.sort_values('equity_change')
         fig = px.histogram(df, x='name', y='equity_change', color='name', title='Equity Change by Company', text_auto=True)
         filename =  'Equity Change by Company.html'
@@ -177,7 +177,7 @@ class RobinUser:
         returns: None
         description: creates a plotly graph of the percentage of total holdings for each company
         '''
-        df = self.df
+        df = self.holdings_df
         fig = px.pie(df, values='percentage', names='name', title='Percentage of Holdings by Company')
         filename = 'Percent Holdings by Company.html'
         pyo.plot(fig, filename=filename)
@@ -190,7 +190,7 @@ class RobinUser:
         returns: None
         description: creates nested bar graph of 
         '''
-        df = self.df
+        df = self.holdings_df
         # df = df['price'].sort_values()
         current_price_trace = go.Bar(x=df['name'], y=df['price'], name='Current Price', marker={'color': '#90ee90'})
         average_purchase_price_trace = go.Bar(x=df['name'], y=df['average_buy_price'], name='Average Purchase Price', marker={'color': '#ffcccb'})
