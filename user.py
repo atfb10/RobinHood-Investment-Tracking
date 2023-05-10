@@ -40,6 +40,7 @@ class RobinUser:
         self.email = email
         self.directory = f'{PATH_TO_PROJECT}\\user_files\\{username}'
         self.holdings_df = self.__extract_holdings_data()
+        self.profile_dict = self.__extract_profile_data()
         self.__graph()
         self.__zip_user_folder()
 
@@ -73,6 +74,15 @@ class RobinUser:
         df = df.astype({'pe_ratio': 'float64'}) 
         df = df.astype({'percentage': 'float64'}) 
         return df
+    
+    def __extract_profile_data(self) -> pd.DataFrame:
+        '''
+        arguments: None
+        returns: Dictionary of investmentment data
+        description: extract data gets the desired data from one's RobinHood account and returns it as a Pandas Dataframe
+        '''
+        robin_stocks.robinhood.login(username=self.username, password=self.password)
+        return robin_stocks.robinhood.load_portfolio_profile()
 
     def __build_message(self) -> str:
         '''
@@ -86,10 +96,12 @@ class RobinUser:
             ec = float(ec)
             equity_change += ec
         equity_change = round(equity_change, 2)
+        withdrawable_amt = self.profile_dict['withdrawable_amount']
         message = f'''Happy Friday!
 
         Your total Equity Change for current investments is ${equity_change}.
-
+        Your total amount of uninvested funds in your account is ${withdrawable_amt}
+        
         Attached in the zipfile below is further details.
         
         Cheers,
