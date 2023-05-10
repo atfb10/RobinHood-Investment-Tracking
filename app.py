@@ -12,8 +12,6 @@ from email.message import EmailMessage
 
 # Local Imports
 from credentials import (
-    EMAIL_FROM,
-    EMAIL_FROM_PASSWORD,
     EMAIL_TO,
     ROBINHODD_USERNAME,
     ROBINHOOD_PASSWORD
@@ -23,13 +21,15 @@ from user import RobinUser
 def run_app() -> None:
     '''
     perform's running of the app. Allows schedule to work
-    TODO: Put final project's functionality into here
+    create user and call send email method for user
     '''
-    pass
-
-# Create User
-user = RobinUser(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD, email=EMAIL_TO)
-user.send_mail()
+    user = RobinUser(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD, email=EMAIL_TO)
+    user.send_mail()
 
 # TODO: Perform Functionality every market close on Fridays
+while True:
+    # schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
+    # schedule.every().friday.at('13:00').do(run_app)
+    # schedule.every().minute.do(run_app)
+
 # schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
