@@ -26,11 +26,6 @@ def run_app() -> None:
     user.send_mail()
     return
 
-# TODO: Perform Functionality every market close on Fridays
 schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
-# schedule.every(1).minutes.do(run_app)
 while True:
-    # schedule.every().friday.at('13:00').do(run_app)
     schedule.run_pending()
-
-# schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
