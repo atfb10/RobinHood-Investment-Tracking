@@ -8,7 +8,6 @@ Description: app.py manages the running of the application
 import schedule
 
 from pytz import timezone
-from email.message import EmailMessage
 
 # Local Imports
 from credentials import (
@@ -25,11 +24,13 @@ def run_app() -> None:
     '''
     user = RobinUser(username=ROBINHODD_USERNAME, password=ROBINHOOD_PASSWORD, email=EMAIL_TO)
     user.send_mail()
+    return
 
 # TODO: Perform Functionality every market close on Fridays
+schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
+# schedule.every(1).minutes.do(run_app)
 while True:
-    # schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
     # schedule.every().friday.at('13:00').do(run_app)
-    # schedule.every().minute.do(run_app)
+    schedule.run_pending()
 
 # schedule.every().friday.at('14:00', timezone('US/Mountain')).do(run_app())
